@@ -28,15 +28,33 @@ window.addEventListener('scroll', _.throttle(function(){
             opacity:0,
             display:'none'
         })
+        // 하단 to-top버튼 보이기
+        gsap.to('#to-top', .2, {
+            x: 0
+        })
+
     } else {
         // 뱃지 표시
         gsap.to(badgeEl, .6, {
             opacity:1,
             display:'block'
     })
+        // 하단 to-top버튼 숨기기
+        gsap.to('#to-top', .2, {
+            x: 100
+        })
 
 }
 }, 300)) // _.throttle (함수, 시간)
+
+// 하단 to-top버튼 동작
+const toTopEl = document.querySelector('#to-top')
+toTopEl.addEventListener('click', function() {
+    gsap.to(window, .8, {
+        scrollTo: 0
+    })
+})
+
 
 //visual fade-in 효과
 const fadeEl = document.querySelectorAll('.visual .fade-in')
@@ -138,3 +156,7 @@ spyEls.forEach(function (spyEl) {
         .setClassToggle(spyEl, 'show') // 요소가 화면에 보이면 show 클래스를 추가
         .addTo( new ScrollMagic.Controller()) //컨트롤러에 장면 할당하면서 실행 (!필수)
 })
+
+// 올해 년도 구하기
+const thisYear = document.querySelector('.this-year')
+thisYear.textContent = new Date().getFullYear()
